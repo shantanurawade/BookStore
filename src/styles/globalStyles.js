@@ -3,7 +3,6 @@ import { Dimensions, StyleSheet } from "react-native";
 const { height, width } = Dimensions.get('window');
 
 export const style = StyleSheet.create({
-
     header: {
         backgroundColor: 'white',
         elevation: 1,
@@ -18,7 +17,9 @@ export const style = StyleSheet.create({
         width: 28
     },
     bookCard: {
-        borderWidth: 1,
+        elevation: 50,
+        backgroundColor: 'white',
+        borderRadius: 10,
         height: height * .36,
         width: width * .44,
         margin: width * .028,
@@ -31,10 +32,11 @@ export const style = StyleSheet.create({
     },
     img: {
         backgroundColor: '#d1d1d1',
-        height: '56%',
-        width: '84%',
-        margin: '6%',
-        alignItems: 'center'
+        height: '60%',
+        width: '100%',
+        alignItems: 'center',
+        borderTopStartRadius: 10,
+        padding: 5
     },
     image: {
         width: 100,
@@ -61,5 +63,43 @@ export const style = StyleSheet.create({
     booksCount: {
         fontSize: 12,
         color: 'grey'
+    },
+    modalView: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.1)',
+        justifyContent: 'flex-end'
+    },
+    closeModal: {
+        backgroundColor: '#911c35',
+        textAlign: 'center',
+        width: 25,
+        color: 'white',
+        borderRadius: 16,
+        margin: 10,
+        fontSize: 20
+    },
+    bookDescriptionModal: {
+        height: '60%',
+        backgroundColor: 'white',
+        borderRadius: 22
+    },
+    descriptionModal: {
+        color: 'grey',
+        width: '80%',
+        alignSelf: 'center',
+        marginTop: 10
+
+    },
+    contentBookModal: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderBottomWidth: 2,
+        borderColor: 'grey',
+        marginHorizontal: 10
+    },
+    titleModal: {
+        fontSize: 30,
+        flexWrap: 'wrap',
+        width: 250
     }
 })
