@@ -7,3 +7,4 @@ import {name as appName} from './app.json';
 import dashboard from './src/screens/dashboard';
 
 AppRegistry.registerComponent(appName, () => dashboard);
+
