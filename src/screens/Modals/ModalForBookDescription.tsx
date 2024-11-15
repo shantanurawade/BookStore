@@ -1,4 +1,4 @@
-import { Image, Modal, Text, View, TouchableWithoutFeedback, Pressable } from "react-native";
+import { Image, Modal, Text, View, Pressable } from "react-native";
 import { style } from "../../styles/globalStyles";
 
 export const ModalForDescription = (props: any) => {
