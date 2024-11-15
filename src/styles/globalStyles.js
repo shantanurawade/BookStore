@@ -26,9 +26,25 @@ export const style = StyleSheet.create({
         backgroundColor: 'white',
         alignContent: 'center'
     },
-    priceText: {
+    bookCardCart: {
+        elevation: 50,
+        backgroundColor: 'white',
+        borderRadius: 10,
+        height: height * .24,
+        width: width * .94,
+        margin: width * .028,
+        backgroundColor: 'white',
+        alignContent: 'center'
+    },
+    priceTextDiscounted: {
         color: 'grey',
-        textDecorationLine: 'line-through'
+        textDecorationLine: 'line-through',
+        fontSize: 15
+    },
+    priceText: {
+        fontWeight: 700,
+        fontSize: 20,
+        margin: 5
     },
     img: {
         backgroundColor: '#d1d1d1',
@@ -55,13 +71,20 @@ export const style = StyleSheet.create({
         height: '100%',
         justifyContent: 'center'
     },
+    goToCart: {
+        backgroundColor: 'rgb(148,77,92)',
+        opacity:5,
+        width: '72%',
+        height: '100%',
+        justifyContent: 'center'
+    },
     title: {
         textAlign: 'center',
         fontSize: 20,
         color: '#911c35'
     },
     booksCount: {
-        fontSize: 12,
+        fontSize: 16,
         color: 'grey'
     },
     modalView: {
@@ -69,7 +92,7 @@ export const style = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.1)',
         justifyContent: 'flex-end'
     },
-    closeModal: {
+    roundButtonMarron: {
         backgroundColor: '#911c35',
         textAlign: 'center',
         width: 25,
