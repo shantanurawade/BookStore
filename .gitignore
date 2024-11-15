@@ -2,9 +2,11 @@
 #
 .DS_Store
 
+android/
+
 # Xcode
 #
-build/
+build/  
 *.pbxuser
 !default.pbxuser
 *.mode1v3
