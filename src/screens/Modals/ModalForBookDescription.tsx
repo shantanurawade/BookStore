@@ -4,6 +4,7 @@ import { style } from "../../styles/globalStyles";
 export const ModalForDescription = (props: any) => {
 
     const book = props.book;
+    
     return (
         <Modal transparent={true}
             animationType='none'
@@ -12,7 +13,7 @@ export const ModalForDescription = (props: any) => {
             <View style={style.modalView}>
 
                 <Pressable style={{ alignItems: 'center' }} onPress={() => { props.setModalOpenForDescription(false) }} >
-                    <Text style={style.closeModal}>X</Text>
+                    <Text style={style.roundButtonMarron}>X</Text>
                 </Pressable>
                 <View style={style.bookDescriptionModal}>
                     <View style={style.contentBookModal}>
