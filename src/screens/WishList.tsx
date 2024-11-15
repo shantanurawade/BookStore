@@ -1,40 +1,68 @@
 import { View, Text, Pressable, Image, SafeAreaView, FlatList } from 'react-native'
-import React, { useState } from 'react'
-import { book } from './MainScreen';
+import React, { useEffect, useState } from 'react'
 import RenderListData from './RenderListData';
+import axios from 'axios';
+import { book } from './MainScreen';
 import { style } from '../styles/globalStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WishList = (props: any) => {
-    const data = props.data;
-    const [isModalOpenForDescription, setModalOpenForDescription] = useState(false);
-    const [currentBook, setCurrentBook] = useState<book>({
-        bookId: 1,
-        img: 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQ7qKbkpal1PPrH_DMQxYdMbXPIda58ILd_CdYhKIQ4_Gd62RR6y72ff0TVXfnIQsXHhlQ_-TwrwXPST1yBba8iSuxwN2FzmCK8Rx1QjdMk&usqp=CAE',
-        author: 'unknown',
-        title: 'It ends with us',
-        description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse deserunt adipisci nesciunt eos, autem amet. Reprehenderit, rerum voluptatem corporis maxime natus facere alias veniam eligendi. Delectus ducimus molestiae ipsam sint.',
-        discountedPrice: '300',
-        price: '345',
-        isFavorite: true
-    })
-    const filteredData = data.filter((item: any) => item.isFavorite);
-    const count = filteredData.length;
+    const [book, setBook] = useState<book[]>([]);
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        var wishlistDataArray: any = [];
+        try {
+            (async () => {
+
+                const dataUser = await AsyncStorage.getItem("currentUser");
+                let user;
+                if (dataUser) { user = JSON.parse(dataUser); }
+                const data = await (axios.get(`http://10.0.2.2:8000/api/v1/user/get/${user._id}`));
+                const wishlistItems: [] = data.data.wishlist.items;
+                console.log('====================================');
+                console.log(wishlistItems);
+                console.log('====================================');
+                const book = (await axios.get('http://10.0.2.2:8000/api/v1/book/get')).data;
+                await Promise.all(
+                    wishlistItems.map(async (items: any) => {
+                        const getBook = items.bookId;
+                        const book = await axios.get(`http://10.0.2.2:8000/api/v1/book/getById/${getBook}`);
+                        console.log('====================================');
+                        console.log(book.data);
+                        console.log('====================================');
+                        wishlistDataArray.push(book.data.data)
+                    }));
+                console.log('====================================');
+                console.log(wishlistDataArray);
+                console.log('====================================');
+                setBook(wishlistDataArray);
+                setCount(wishlistDataArray.length);
+            })()
+
+        } catch (error) {
+            console.log('====================================');
+            console.log(error);
+            console.log('====================================');
+        }
+
+    }, [])
+
     return (
         <SafeAreaView>
-            <View style={{ backgroundColor: 'white', elevation: 5, height: '8%', alignItems: 'center', flexDirection: 'row' }}>
-                <Pressable style={{ width: '12%', justifyContent:'center' }} onPress={() => props.setFavorite(false)}>
-                    <Text style={{ fontSize: 30, textAlign:'center'}}>{'<'}</Text>
+            <View style={{ backgroundColor: 'white', elevation: 5, height: '6%', marginTop: '2%', alignItems: 'center', flexDirection: 'row' }}>
+                <Pressable style={{ width: '12%', justifyContent: 'center' }} onPress={() => props.setFavorite(false)}>
+                    <Text style={{ fontSize: 30, textAlign: 'center' }}>{'<'}</Text>
                 </Pressable>
                 <Text style={{ fontSize: 30 }}>Wishlist</Text>
-                <Text style={style.booksCount}> ({count}item)</Text>
+                <Text style={style.booksCount}> ({count} {count === 1 ? 'item' : 'items'})</Text>
             </View>
             <FlatList
-                data={filteredData}
+                data={book}
                 numColumns={2}
-                contentContainerStyle={{ paddingBottom: 150 }}
-                keyExtractor={(item) => item.bookId.toString()}
+                contentContainerStyle={{ paddingBottom: 300 }}
+                keyExtractor={(item) => item._id.toString()}
                 renderItem={({ item }) => (
-                    <RenderListData setModalOpenForDescription={setModalOpenForDescription} setCurrentBook={setCurrentBook} item={item} isModalOpenForDescription={isModalOpenForDescription} currentBook={currentBook} />
+                    <RenderListData item={item} />
                 )} />
 
         </SafeAreaView>
