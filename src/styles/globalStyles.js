@@ -73,7 +73,7 @@ export const style = StyleSheet.create({
     },
     goToCart: {
         backgroundColor: 'rgb(148,77,92)',
-        opacity:5,
+        opacity: 5,
         width: '72%',
         height: '100%',
         justifyContent: 'center'
@@ -124,5 +124,16 @@ export const style = StyleSheet.create({
         fontSize: 30,
         flexWrap: 'wrap',
         width: 250
+    },
+    textFiledsCredentials: {
+        margin: 10,
+        width: '66%'
+    },
+    showPassword: {
+        marginStart: 70,
+        width: 20,
+        color: 'white',
+        borderWidth: 1,
+        textAlign: 'center',
     }
 })
